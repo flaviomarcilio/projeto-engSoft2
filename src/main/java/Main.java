@@ -1,6 +1,8 @@
 import classes.*;
-import enums.Genero;
-import enums.TipoPlano;
+import repositories.FilmesRepository;
+import repositories.PlanosRepository;
+import repositories.SeriesRepository;
+import repositories.UsuariosRepository;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,39 +10,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Main {
-    static ArrayList<Usuario> _usuariosCadastrados = new ArrayList<Usuario>();
-    static ArrayList<Plano> _planosDisponiveis = new ArrayList<Plano>();
-    static ArrayList<Filme> _filmesDisponiveis = new ArrayList<Filme>();
-    static ArrayList<Serie> _seriesDisponiveis = new ArrayList<Serie>();
 
+    static UsuariosRepository _usuariosRepository;
+    static PlanosRepository _planosRepository;
     public static void main(String[] args) throws IOException {
 
-        Plano p1 = new Plano(TipoPlano.BASICO, 25.90);
-        Plano p2 = new Plano(TipoPlano.PADRAO, 39.90);
-        Plano p3 = new Plano(TipoPlano.PREMIUM, 55.90);
-        _planosDisponiveis.add(p1);
-        _planosDisponiveis.add(p2);
-        _planosDisponiveis.add(p3);
-
-        Filme f1 = new Filme("Filme1", 16, Genero.ACAO, "12/12/2023",
-                "2:30", "Diretor");
-        Filme f2 = new Filme("Filme2", 18, Genero.TERROR, "12/12/2022",
-                "2:30", "Diretor");
-        Filme f3 = new Filme("Filme3", 12, Genero.COMEDIA, "01/01/2020",
-                "1:40", "Diretor");
-        _filmesDisponiveis.add(f1);
-        _filmesDisponiveis.add(f2);
-        _filmesDisponiveis.add(f3);
-
-        Serie s1 = new Serie("Série1", 14, Genero.FANTASIA, "14/12/2021",
-                "1:20", "Diretor", 3);
-        Serie s2 = new Serie("Série2", 14, Genero.FANTASIA, "12/01/2018",
-                "1:30", "Diretor", 3);
-        Serie s3 = new Serie("Série3", 14, Genero.FANTASIA, "20/05/2012",
-                "1:00", "Diretor", 3);
-        _seriesDisponiveis.add(s1);
-        _seriesDisponiveis.add(s2);
-        _seriesDisponiveis.add(s3);
+        _usuariosRepository = new UsuariosRepository();
+        _planosRepository = new PlanosRepository();
 
         String opcao = menuPrincipal();
         String sair = "X";
@@ -87,9 +63,9 @@ public class Main {
         System.out.print("Digite o password: ");
         String password = br.readLine();
 
-        if (UsuarioCadastrado(username, password))
+        if (_usuariosRepository.UsuarioCadastrado(username, password))
         {
-            Usuario usuario = BuscarUsuario(username, password);
+            Usuario usuario = _usuariosRepository.BuscarUsuario(username, password);
             Perfil perfil = usuario.getConta().retornarPerfilPorId(0);
 
             String opcao = Menu(usuario, perfil);
@@ -128,13 +104,21 @@ public class Main {
     }
 
     private static void AcessarSeries(Perfil perfil) {
-        for (Serie serie : _seriesDisponiveis) {
+        SeriesRepository seriesRepository = new SeriesRepository();
+
+        ArrayList<Serie> seriesDisponiveis = seriesRepository.retornarLista();
+
+        for (Serie serie : seriesDisponiveis) {
             System.out.printf("Serie: %s\n", serie.getTitulo());
         }
     }
 
     private static void AcessarFilmes(Perfil perfil) {
-        for (Filme filme : _filmesDisponiveis) {
+        FilmesRepository filmesRepository = new FilmesRepository();
+
+        ArrayList<Filme> filmesDisponiveis = filmesRepository.retornarLista();
+
+        for (Filme filme : filmesDisponiveis) {
             System.out.printf("Filme: %s\n", filme.getTitulo());
         }
     }
@@ -176,30 +160,6 @@ public class Main {
         return opcao.toUpperCase();
     }
 
-    private static boolean UsuarioCadastrado(String username, String password)
-    {
-        if (_usuariosCadastrados.isEmpty()) return false;
-
-        for (Usuario usuario : _usuariosCadastrados) {
-            if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static Usuario BuscarUsuario(String username, String password)
-    {
-        for (Usuario usuario : _usuariosCadastrados)
-        {
-            if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password))
-            {
-                return usuario;
-            }
-        }
-        return null;
-    }
-
     private static void Cadastrar() throws IOException
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -221,20 +181,21 @@ public class Main {
 
         Usuario usuario = new Usuario(nome, telefone, email, username, senha);
 
+        ArrayList<Plano> planosDisponiveis = _planosRepository.retornarLista();
         System.out.println("Planos Disponíveis");
-        for (int i = 0; i < _planosDisponiveis.size(); i++) {
+        for (int i = 0; i < planosDisponiveis.size(); i++) {
 
-            Plano plano = _planosDisponiveis.get(i);
+            Plano plano = planosDisponiveis.get(i);
             System.out.printf("%d - Plano %s - Preço: R$%.2f\n", i, plano.getTipo(), plano.getPreco());
         }
 
         System.out.print("Qual plano desejado? ");
         int opcaoPlano = Integer.parseInt(br.readLine());
 
-        Conta conta = new Conta(_planosDisponiveis.get(opcaoPlano));
+        Conta conta = new Conta(planosDisponiveis.get(opcaoPlano));
         usuario.setConta(conta);
 
-        _usuariosCadastrados.add(usuario);
+        _usuariosRepository.cadastrar(usuario);
     }
 
     private static void printHeader(Usuario usuario, Perfil perfil) {
