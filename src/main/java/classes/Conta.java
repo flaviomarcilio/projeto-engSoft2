@@ -7,6 +7,8 @@ public class Conta {
     private ArrayList<Perfil> perfis;
     private boolean ativo;
 
+    private int idPerfilEmUso;
+
     public Conta(Plano plano) {
         this.plano = plano;
         ativo = true;
@@ -14,6 +16,7 @@ public class Conta {
 
         Perfil perfil = new Perfil(18, "Português");
         perfis.add(perfil);
+        idPerfilEmUso = 0;
     }
 
     public void AdicionarPerfil(Perfil perfil) {
@@ -25,26 +28,36 @@ public class Conta {
     }
 
     public boolean isAtivo() {
+
         return ativo;
     }
 
     public void Cancelar() {
+
         ativo = false;
     }
 
     public Plano getPlano() {
+
         return plano;
     }
 
     public void setPlano(Plano plano) {
+
         this.plano = plano;
     }
 
     public Perfil retornarPerfilPorId(int id) {
+
         return perfis.get(id);
     }
 
     public ArrayList<Perfil> retornarListaPerfis() {
+
         return perfis;
+    }
+
+    public Perfil retornarPerfilEmUso() {
+        return perfis.get(idPerfilEmUso);
     }
 }

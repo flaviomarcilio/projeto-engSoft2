@@ -58,22 +58,18 @@ public class Main {
             opcao = menuPrincipal();
         }
         System.out.println("Obrigado por utilizar nossos serviços.");
-        System.out.println("***********************************************");
     }
 
     private static String menuPrincipal() throws IOException
     {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println();
-        System.out.println("***********************************************");
-        System.out.println("************ Plataforma de Vídeos *************");
+        printHeader(null, null);
         System.out.println("Selecione uma das opções abaixo:");
         System.out.println("1 - Acessar");
         System.out.println("2 - Cadastrar");
         System.out.println("X - Sair");
-        System.out.println("***********************************************");
-        System.out.println();
+        printFooter();
 
         System.out.print("O que gostaria de fazer? ");
         String opcao = br.readLine();
@@ -117,13 +113,12 @@ public class Main {
         }
         else
         {
-            System.out.println("Usuário não cadastrado.");
-            System.out.println("Crie uma conta para poder acessar a plataforma.");
+            System.out.println("> Usuário não cadastrado.");
+            System.out.println("> Crie uma conta para poder acessar a plataforma.");
         }
     }
 
     private static void AcessarMinhaLista(Perfil perfil) {
-        System.out.println("***** Minha Lista *****");
         for (Filme filme : perfil.getMinhaListaFilmes()) {
             System.out.printf("Filme: %s\n", filme.getTitulo());
         }
@@ -166,17 +161,14 @@ public class Main {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("***********************************************");
-        System.out.printf("***** Plataforma de Vídeos - Usuário: %s *****\n", usuario.getUsername());
-        System.out.println("-----------------------------------------------");
-        System.out.printf("***** Perfil Selecionado: %s\n", perfil.getNome());
+        printHeader(usuario, perfil);
         System.out.println("Selecione uma das opções abaixo:");
         System.out.println("1 - Trocar Perfil");
         System.out.println("2 - Acessar Seção de Filmes");
         System.out.println("3 - Acessar Seção de Séries");
         System.out.println("4 - Acessar Minha Lista");
         System.out.println("X - Sair");
-        System.out.println("***********************************************");
+        printFooter();
 
         System.out.print("Qual opção? " );
         String opcao = br.readLine();
@@ -243,5 +235,26 @@ public class Main {
         usuario.setConta(conta);
 
         _usuariosCadastrados.add(usuario);
+    }
+
+    private static void printHeader(Usuario usuario, Perfil perfil) {
+        System.out.println();
+        System.out.println("************************************************");
+        System.out.println("****** Sistema de Gerenciamento de Vídeos ******");
+        if (usuario != null || perfil != null) {
+            String username = usuario.getUsername();
+            String perfilName = perfil.getNome();
+            System.out.printf("Usuário Logado: %s | Perfil: %s\n", username, perfilName);
+        }
+        System.out.println("************************************************");
+        System.out.println();
+    }
+
+    private static void printFooter() {
+        System.out.println();
+        System.out.println("************************************************");
+        System.out.println("*********** EnGSoFT 2 - 2023/2 *****************");
+        System.out.println("************************************************");
+        System.out.println();
     }
 }
