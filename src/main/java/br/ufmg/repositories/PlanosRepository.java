@@ -1,7 +1,7 @@
-package repositories;
+package br.ufmg.repositories;
 
-import classes.Plano;
-import enums.TipoPlano;
+import br.ufmg.classes.Plano;
+import br.ufmg.enums.TipoPlano;
 
 import java.util.ArrayList;
 

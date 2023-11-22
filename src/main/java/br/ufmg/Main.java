@@ -1,13 +1,20 @@
-import classes.*;
-import repositories.FilmesRepository;
-import repositories.PlanosRepository;
-import repositories.SeriesRepository;
-import repositories.UsuariosRepository;
+package br.ufmg;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import br.ufmg.classes.Conta;
+import br.ufmg.classes.Filme;
+import br.ufmg.classes.Perfil;
+import br.ufmg.classes.Plano;
+import br.ufmg.classes.Serie;
+import br.ufmg.classes.Usuario;
+import br.ufmg.repositories.FilmesRepository;
+import br.ufmg.repositories.PlanosRepository;
+import br.ufmg.repositories.SeriesRepository;
+import br.ufmg.repositories.UsuariosRepository;
 
 public class Main {
 

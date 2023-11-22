@@ -1,4 +1,4 @@
-package enums;
+package br.ufmg.enums;
 
 public enum TipoPlano {
     BASICO,

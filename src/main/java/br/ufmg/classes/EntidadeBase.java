@@ -1,6 +1,6 @@
-package classes;
+package br.ufmg.classes;
 
-import enums.Genero;
+import br.ufmg.enums.Genero;
 
 import java.util.ArrayList;
 

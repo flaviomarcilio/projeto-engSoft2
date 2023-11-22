@@ -1,10 +1,9 @@
-package classes;
+package br.ufmg.classes;
 
-import enums.OpcaoPagamento;
-import enums.TipoPlano;
-import org.junit.jupiter.api.DisplayName;
+import br.ufmg.enums.OpcaoPagamento;
+import br.ufmg.enums.TipoPlano;
+
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;

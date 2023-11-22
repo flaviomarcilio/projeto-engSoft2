@@ -1,4 +1,4 @@
-package classes;
+package br.ufmg.classes;
 
 public class Usuario {
     private String nome;

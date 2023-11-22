@@ -1,4 +1,4 @@
-package classes;
+package br.ufmg.classes;
 
 import java.util.ArrayList;
 

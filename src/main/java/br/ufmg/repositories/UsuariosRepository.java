@@ -1,6 +1,6 @@
-package repositories;
+package br.ufmg.repositories;
 
-import classes.Usuario;
+import br.ufmg.classes.Usuario;
 
 import java.util.ArrayList;
 

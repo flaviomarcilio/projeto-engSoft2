@@ -1,8 +1,6 @@
-package classes;
+package br.ufmg.classes;
 
-import enums.Genero;
-
-import java.util.ArrayList;
+import br.ufmg.enums.Genero;
 
 public class Serie extends EntidadeBase {
     private int temporadas;

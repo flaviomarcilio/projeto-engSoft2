@@ -1,7 +1,7 @@
-package repositories;
+package br.ufmg.repositories;
 
-import classes.Serie;
-import enums.Genero;
+import br.ufmg.classes.Serie;
+import br.ufmg.enums.Genero;
 
 import java.util.ArrayList;
 

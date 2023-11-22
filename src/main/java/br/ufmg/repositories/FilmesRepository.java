@@ -1,7 +1,7 @@
-package repositories;
+package br.ufmg.repositories;
 
-import classes.Filme;
-import enums.Genero;
+import br.ufmg.classes.Filme;
+import br.ufmg.enums.Genero;
 
 import java.util.ArrayList;
 

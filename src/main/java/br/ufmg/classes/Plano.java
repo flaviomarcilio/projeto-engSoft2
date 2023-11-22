@@ -1,7 +1,7 @@
-package classes;
+package br.ufmg.classes;
 
-import enums.OpcaoPagamento;
-import enums.TipoPlano;
+import br.ufmg.enums.OpcaoPagamento;
+import br.ufmg.enums.TipoPlano;
 
 import java.time.LocalDate;
 
