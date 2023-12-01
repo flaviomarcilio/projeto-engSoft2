@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContaTest {
 
     @Test
-    void adicionarPerfil_QuandoAdicionaUmPerfil_DeveraConterDoisPerfis() {
+    void adicionarPerfil_QuandoAdicionaNovoPerfil_DeveraConterDoisPerfis() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
                 OpcaoPagamento.CARTAO_CREDITO);
@@ -22,7 +22,7 @@ class ContaTest {
         conta.AdicionarPerfil(perfil);
 
         //Assert
-        assertEquals(conta.retornarListaPerfis().size(), 2);
+        assertEquals(2, conta.retornarListaPerfis().size());
 
     }
 
@@ -88,17 +88,17 @@ class ContaTest {
     }
 
     @Test
-    void retornarPerfilPorId_DeveraRetornarPerfilDefault() {
+    void retornarPerfilDefault_DeveraRetornarPerfilDefault() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
                 OpcaoPagamento.CARTAO_CREDITO);
         Conta conta = new Conta(plano);
 
         //Act
-        Perfil result = conta.retornarPerfilPorId(0);
+        Perfil result = conta.retornarPerfilDefault();
 
         //Assert
-        assertEquals(result.getNome(), "Default");
+        assertEquals("Default", result.getNome());
 
     }
 }

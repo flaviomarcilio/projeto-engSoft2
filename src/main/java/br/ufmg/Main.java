@@ -25,26 +25,25 @@ public class Main {
         _usuariosRepository = new UsuariosRepository();
         _planosRepository = new PlanosRepository();
 
-        String opcao = menuPrincipal();
+        String option = menuPrincipal();
         String sair = "X";
 
-        while (!opcao.equals(sair)) {
+        while (!option.equals(sair)) {
 
-            if ("1".equals(opcao)) {
+            if ("1".equals(option)) {
                 Acessar();
-            } else if ("2".equals(opcao)) {
+            } else if ("2".equals(option)) {
                 Cadastrar();
             } else {
                 break;
             }
 
-            opcao = menuPrincipal();
+            option = menuPrincipal();
         }
         System.out.println("Obrigado por utilizar nossos serviços.");
     }
 
-    private static String menuPrincipal() throws IOException
-    {
+    private static String menuPrincipal() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         printHeader(null, null);
@@ -55,13 +54,11 @@ public class Main {
         printFooter();
 
         System.out.print("O que gostaria de fazer? ");
-        String opcao = br.readLine();
 
-        return opcao;
+        return br.readLine();
     }
 
-    private static void Acessar() throws IOException
-    {
+    private static void Acessar() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Digite o username: ");
@@ -72,26 +69,38 @@ public class Main {
 
         if (_usuariosRepository.UsuarioCadastrado(username, password))
         {
-            Usuario usuario = _usuariosRepository.BuscarUsuario(username, password);
-            Perfil perfil = usuario.getConta().retornarPerfilPorId(0);
+            Usuario user = _usuariosRepository.BuscarUsuario(username, password);
+            Perfil perfil = user.getConta().retornarPerfilDefault();
 
-            String opcao = Menu(usuario, perfil);
+            String option = Menu(user, perfil);
 
-            while (!opcao.equals("X"))
+            label:
+            while (!option.equals("X"))
             {
-                if ("1".equals(opcao)) {
-                    perfil = TrocarPerfil(usuario);
-                } else if ("2".equals(opcao)) {
-                    AcessarFilmes(perfil);
-                } else if ("3".equals(opcao)) {
-                    AcessarSeries(perfil);
-                } else if ("4".equals(opcao)) {
-                    AcessarMinhaLista(perfil);
-                } else {
-                    break;
+                switch (option) {
+                    case "1":
+                        perfil = TrocarPerfil(user);
+                        break;
+                    case "2":
+//                        CriarNovoPerfil(user);
+                        break;
+                    case "3":
+                        AcessarFilmes();
+                        break;
+                    case "4":
+                        AcessarSeries();
+                        break;
+                    case "5":
+                        AcessarMinhaLista(perfil);
+                        break;
+                    case "6":
+//                        EfetuarPagamento(user);
+                        break;
+                    default:
+                        break label;
                 }
 
-                opcao = Menu(usuario, perfil);
+                option = Menu(user, perfil);
             }
         }
         else
@@ -101,33 +110,25 @@ public class Main {
         }
     }
 
-    private static void AcessarMinhaLista(Perfil perfil) {
-        for (Filme filme : perfil.getMinhaListaFilmes()) {
-            System.out.printf("Filme: %s\n", filme.getTitulo());
-        }
-        for (Serie serie : perfil.getMinhaListaSeries()) {
-            System.out.printf("Série: %s\n", serie.getTitulo());
-        }
-    }
+    private static String Menu(Usuario usuario, Perfil perfil) throws IOException {
 
-    private static void AcessarSeries(Perfil perfil) {
-        SeriesRepository seriesRepository = new SeriesRepository();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        ArrayList<Serie> seriesDisponiveis = seriesRepository.retornarLista();
+        printHeader(usuario, perfil);
+        System.out.println("Selecione uma das opções abaixo:");
+        System.out.println("1 - Trocar Perfil");
+        System.out.println("2 - Criar Novo Perfil");
+        System.out.println("3 - Acessar Seção de Filmes");
+        System.out.println("4 - Acessar Seção de Séries");
+        System.out.println("5 - Acessar Minha Lista");
+        System.out.println("6 - Efetuar Pagamento");
+        System.out.println("X - Sair");
+        printFooter();
 
-        for (Serie serie : seriesDisponiveis) {
-            System.out.printf("Serie: %s\n", serie.getTitulo());
-        }
-    }
+        System.out.print("Qual opção? " );
+        String option = br.readLine();
 
-    private static void AcessarFilmes(Perfil perfil) {
-        FilmesRepository filmesRepository = new FilmesRepository();
-
-        ArrayList<Filme> filmesDisponiveis = filmesRepository.retornarLista();
-
-        for (Filme filme : filmesDisponiveis) {
-            System.out.printf("Filme: %s\n", filme.getTitulo());
-        }
+        return option.toUpperCase();
     }
 
     private static Perfil TrocarPerfil(Usuario usuario) throws NumberFormatException, IOException {
@@ -142,33 +143,42 @@ public class Main {
             System.out.printf("%d - %s", i, perfil.getNome());
         }
 
-        System.out.print("Qual perfil deseja? " );
-        int opcao = Integer.parseInt(br.readLine());
+        System.out.print("Qual perfil deseja acessar? " );
+        int option = Integer.parseInt(br.readLine());
 
-        return perfis.get(opcao);
+        return perfis.get(option);
     }
 
-    private static String Menu(Usuario usuario, Perfil perfil) throws IOException {
+    private static void AcessarFilmes() {
+        FilmesRepository filmesRepository = new FilmesRepository();
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<Filme> filmes = filmesRepository.retornarLista();
 
-        printHeader(usuario, perfil);
-        System.out.println("Selecione uma das opções abaixo:");
-        System.out.println("1 - Trocar Perfil");
-        System.out.println("2 - Acessar Seção de Filmes");
-        System.out.println("3 - Acessar Seção de Séries");
-        System.out.println("4 - Acessar Minha Lista");
-        System.out.println("X - Sair");
-        printFooter();
-
-        System.out.print("Qual opção? " );
-        String opcao = br.readLine();
-
-        return opcao.toUpperCase();
+        for (Filme filme : filmes) {
+            System.out.printf("Filme: %s\n", filme.getTitulo());
+        }
     }
 
-    private static void Cadastrar() throws IOException
-    {
+    private static void AcessarSeries() {
+        SeriesRepository seriesRepository = new SeriesRepository();
+
+        ArrayList<Serie> series = seriesRepository.retornarLista();
+
+        for (Serie serie : series) {
+            System.out.printf("Serie: %s\n", serie.getTitulo());
+        }
+    }
+
+    private static void AcessarMinhaLista(Perfil perfil) {
+        for (Filme filme : perfil.getMinhaListaFilmes()) {
+            System.out.printf("Filme: %s\n", filme.getTitulo());
+        }
+        for (Serie serie : perfil.getMinhaListaSeries()) {
+            System.out.printf("Série: %s\n", serie.getTitulo());
+        }
+    }
+
+    private static void Cadastrar() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.print("Digite seu Nome: ");
@@ -188,18 +198,18 @@ public class Main {
 
         Usuario usuario = new Usuario(nome, telefone, email, username, senha);
 
-        ArrayList<Plano> planosDisponiveis = _planosRepository.retornarLista();
+        ArrayList<Plano> planos = _planosRepository.retornarLista();
         System.out.println("Planos Disponíveis");
-        for (int i = 0; i < planosDisponiveis.size(); i++) {
+        for (int i = 0; i < planos.size(); i++) {
 
-            Plano plano = planosDisponiveis.get(i);
+            Plano plano = planos.get(i);
             System.out.printf("%d - Plano %s - Preço: R$%.2f\n", i, plano.getTipo(), plano.getPreco());
         }
 
         System.out.print("Qual plano desejado? ");
-        int opcaoPlano = Integer.parseInt(br.readLine());
+        int option = Integer.parseInt(br.readLine());
 
-        Conta conta = new Conta(planosDisponiveis.get(opcaoPlano));
+        Conta conta = new Conta(planos.get(option));
         usuario.setConta(conta);
 
         _usuariosRepository.cadastrar(usuario);
@@ -210,7 +220,10 @@ public class Main {
         System.out.println("************************************************");
         System.out.println("****** Sistema de Gerenciamento de Vídeos ******");
         if (usuario != null || perfil != null) {
-            String username = usuario.getUsername();
+            String username = null;
+            if (usuario != null) {
+                username = usuario.getUsername();
+            }
             String perfilName = perfil.getNome();
             System.out.printf("Usuário Logado: %s | Perfil: %s\n", username, perfilName);
         }

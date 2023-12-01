@@ -8,18 +8,18 @@ public class Perfil {
     private String nome;
     private ArrayList<Filme> filmesAssistidos;
     private ArrayList<Serie> seriesAssistidas;
-    private ArrayList<Filme> minhaListaFilmes;
-    private ArrayList<Serie> minhaListaSeries;
+    private final ArrayList<Filme> minhaListaFilmes;
+    private final ArrayList<Serie> minhaListaSeries;
     private boolean ativo;
 
     public Perfil(int classificacao, String idioma) {
         this.classificacao = classificacao;
         this.idioma = idioma;
         this.nome = "Default";
-        this.filmesAssistidos = new ArrayList<Filme>();
-        this.seriesAssistidas = new ArrayList<Serie>();
-        this.minhaListaFilmes = new ArrayList<Filme>();
-        this.minhaListaSeries = new ArrayList<Serie>();
+        this.filmesAssistidos = new ArrayList<>();
+        this.seriesAssistidas = new ArrayList<>();
+        this.minhaListaFilmes = new ArrayList<>();
+        this.minhaListaSeries = new ArrayList<>();
         this.ativo = true;
     }
 
@@ -67,7 +67,7 @@ public class Perfil {
         return minhaListaSeries;
     }
 
-    public void AdicionarSeriaNaMinhaLista(Serie serie) {
+    public void AdicionarSerieNaMinhaLista(Serie serie) {
         minhaListaSeries.add(serie);
     }
 

@@ -23,10 +23,6 @@ public class Plano {
         this.preco = preco;
     }
 
-    public void Alterar() {
-
-    }
-
     public TipoPlano getTipo() {
         return tipo;
     }
