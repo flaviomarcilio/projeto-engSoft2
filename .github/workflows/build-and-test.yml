@@ -16,8 +16,11 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -31,16 +34,16 @@ jobs:
           cache: maven
 
       - name: Build
-        run: mvn -B package --file pom.xml
+        run: mvn -B -DskipTests package --file pom.xml
 
       - name: Unit Test
-        run: mvn -B -D maven.test.failure.ignore=true test
+        run: mvn -B test
 
       - name: Report
         uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: Maven Tests
+          name: Maven Tests - ${{ matrix.os }}
           path: target/surefire-reports/*.xml
           reporter: java-junit
           fail-on-error: true
