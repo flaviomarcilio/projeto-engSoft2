@@ -39,5 +39,17 @@ jobs:
       - name: Unit Test
         run: mvn -B -DskipSurefireTests=false test
 
+      - name: Unit Test Report
+        uses: ScaCap/action-surefire-report@v1.7.2
+        with:
+          name: Unit Tests - ${{ matrix.os }}
+          path: target/surefire-reports/*.xml
+            
       - name: Integration Test
         run: mvn -B -DskipFailsafeTests=false verify
+
+      - name: Integration Test Report
+        uses: ScaCap/action-surefire-report@v1.7.2
+        with:
+          name: Integration Tests - ${{ matrix.os }}
+          path: target/failsafe-reports/*.xml
