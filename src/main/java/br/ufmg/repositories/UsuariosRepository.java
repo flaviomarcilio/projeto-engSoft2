@@ -6,32 +6,28 @@ import java.util.ArrayList;
 
 public class UsuariosRepository {
 
-    private ArrayList<Usuario> _usuariosCadastrados;
+    private final ArrayList<Usuario> usuarios;
     public UsuariosRepository() {
-        _usuariosCadastrados = new ArrayList<Usuario>();
+        usuarios = new ArrayList<>();
     }
 
     public void cadastrar(Usuario usuario) {
-        _usuariosCadastrados.add(usuario);
+        usuarios.add(usuario);
     }
 
-    public Usuario BuscarUsuario(String username, String password)
-    {
-        for (Usuario usuario : _usuariosCadastrados)
-        {
-            if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password))
-            {
+    public Usuario BuscarUsuario(String username, String password) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password)) {
                 return usuario;
             }
         }
         return null;
     }
 
-    public boolean UsuarioCadastrado(String username, String password)
-    {
-        if (_usuariosCadastrados.isEmpty()) return false;
+    public boolean UsuarioCadastrado(String username, String password) {
+        if (usuarios.isEmpty()) return false;
 
-        for (Usuario usuario : _usuariosCadastrados) {
+        for (Usuario usuario : usuarios) {
             if (usuario.getUsername().equals(username) && usuario.getPassword().equals(password)) {
                 return true;
             }

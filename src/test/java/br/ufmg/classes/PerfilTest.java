@@ -2,11 +2,13 @@ package br.ufmg.classes;
 
 import br.ufmg.enums.Genero;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@DisplayName("Teste Unitário da Classe Perfil")
 class PerfilTest {
 
     Perfil perfil;
@@ -18,6 +20,7 @@ class PerfilTest {
     }
 
     @Test
+    @DisplayName("Quando criar novo perfil, o novo perfil deverá estar ativo")
     void isAtivo_QuandoCriarNovoPerfil_PerfilDeveraEstarAtivo() {
         //ACT
         var result = perfil.isAtivo();
@@ -27,6 +30,7 @@ class PerfilTest {
     }
 
     @Test
+    @DisplayName("Quando excluir um perfil, este perfil deverá estar desativado")
     void excluir_QuandoExcluirPerfil_PerfilNaoDeveraEstarAtivo() {
         //ACT
         perfil.Excluir();
@@ -37,6 +41,7 @@ class PerfilTest {
     }
 
     @Test
+    @DisplayName("Quando solicitar minha lista de filmes, deverá retornar minha lista de filmes")
     void getMinhaListaFilmes_QuandoAdicionarFilmesNaMinhaLista_MinhaListaDeFilmesNaoDeveraEstarVazia() {
         //ARRANGE
         Filme f1 = new Filme("Filme1", 16, Genero.ACAO, "12/12/2023",
@@ -58,6 +63,7 @@ class PerfilTest {
     }
 
     @Test
+    @DisplayName("Quando solicitar minha lista de séries, deverá retornar minha lista de séries")
     void getMinhaListaSeries_QuandoAdicionarSeriesNaMinhaLista_MinhaListaDeSeriesNaoDeveraEstarVazia() {
         //ARRAGE
         Serie s1 = new Serie("Série1", 14, Genero.FANTASIA, "14/12/2021",

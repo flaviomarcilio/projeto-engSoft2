@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class FilmesRepository {
 
-    private ArrayList<Filme> _filmesDisponiveis;
+    private final ArrayList<Filme> filmes;
     public FilmesRepository() {
-        _filmesDisponiveis = new ArrayList<Filme>();
+        filmes = new ArrayList<>();
 
         Filme f1 = new Filme("Filme1", 16, Genero.ACAO, "12/12/2023",
                 "2:30", "Diretor");
@@ -18,12 +18,12 @@ public class FilmesRepository {
         Filme f3 = new Filme("Filme3", 12, Genero.COMEDIA, "01/01/2020",
                 "1:40", "Diretor");
 
-        _filmesDisponiveis.add(f1);
-        _filmesDisponiveis.add(f2);
-        _filmesDisponiveis.add(f3);
+        filmes.add(f1);
+        filmes.add(f2);
+        filmes.add(f3);
     }
 
     public ArrayList<Filme> retornarLista() {
-        return _filmesDisponiveis;
+        return filmes;
     }
 }

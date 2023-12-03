@@ -21,7 +21,7 @@ public class EntidadeBase {
         this.lancamento = lancamento;
         this.duracao = duracao;
         this.diretor = diretor;
-        this.elenco = new ArrayList<String>();
+        this.elenco = new ArrayList<>();
     }
 
     public String getTitulo() {

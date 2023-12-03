@@ -38,3 +38,6 @@ jobs:
 
       - name: Unit Test
         run: mvn -B test
+
+      - name: Integration Test
+        run: mvn verify -Dskip.surefire.tests

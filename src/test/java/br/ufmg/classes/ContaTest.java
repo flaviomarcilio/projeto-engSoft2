@@ -3,14 +3,17 @@ package br.ufmg.classes;
 import br.ufmg.enums.OpcaoPagamento;
 import br.ufmg.enums.TipoPlano;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Teste Unitário da classe Conta")
 class ContaTest {
 
     @Test
+    @DisplayName("Quando adicionar novo perfil, a conta deverá possuir 2 perfis")
     void adicionarPerfil_QuandoAdicionaNovoPerfil_DeveraConterDoisPerfis() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
@@ -27,6 +30,7 @@ class ContaTest {
     }
 
     @Test
+    @DisplayName("Quando criar uma nova conta, esta conta deverá estar ativa")
     void isAtivo_QuandoCriaUmaConta_ContaDeveraEstarAtiva() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
@@ -41,6 +45,7 @@ class ContaTest {
     }
 
     @Test
+    @DisplayName("Quando cancelar uma conta ela deve ser desativada")
     void cancelar_QuandoCancelaUmaConta_ContaDeveraEstarDesativada() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
@@ -56,6 +61,7 @@ class ContaTest {
     }
 
     @Test
+    @DisplayName("Quando solicitar o plano, deverá retornar o plano cadastrado")
     void getPlano_DeveraRetornaPlanoDaConta() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
@@ -70,6 +76,7 @@ class ContaTest {
     }
 
     @Test
+    @DisplayName("Quando solicitar troca de plano, deverá retornar novo plano")
     void setPlano_QuandoTrocarPlano_ContaDeveraRetornarNovoPlano() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),
@@ -88,6 +95,7 @@ class ContaTest {
     }
 
     @Test
+    @DisplayName("Quando solicitar perfil default, deverá retornar o perfil default")
     void retornarPerfilDefault_DeveraRetornarPerfilDefault() {
         //Arrange
         Plano plano = new Plano(TipoPlano.BASICO, 18.90, LocalDate.of(2020,12,1),

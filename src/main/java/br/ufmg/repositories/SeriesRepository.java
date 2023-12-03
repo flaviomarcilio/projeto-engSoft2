@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class SeriesRepository {
 
-    private ArrayList<Serie> _seriesDisponiveis;
+    private final ArrayList<Serie> series;
 
     public SeriesRepository() {
-        _seriesDisponiveis = new ArrayList<Serie>();
+        series = new ArrayList<>();
 
         Serie s1 = new Serie("Série1", 14, Genero.FANTASIA, "14/12/2021",
                 "1:20", "Diretor", 3);
@@ -18,12 +18,12 @@ public class SeriesRepository {
                 "1:30", "Diretor", 3);
         Serie s3 = new Serie("Série3", 14, Genero.FANTASIA, "20/05/2012",
                 "1:00", "Diretor", 3);
-        _seriesDisponiveis.add(s1);
-        _seriesDisponiveis.add(s2);
-        _seriesDisponiveis.add(s3);
+        series.add(s1);
+        series.add(s2);
+        series.add(s3);
     }
 
     public ArrayList<Serie> retornarLista() {
-        return _seriesDisponiveis;
+        return series;
     }
 }
