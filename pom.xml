@@ -17,8 +17,8 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <skipTests>true</skipTests>
-        <skip.surefire.tests>${skipTests}</skip.surefire.tests>
-        <skip.failsafe.tests>${skipTests}</skip.failsafe.tests>
+        <skipSurefireTests>${skipTests}</skipSurefireTests>
+        <skipFailsafeTests>${skipTests}</skipFailsafeTests>
     </properties>
 
     <dependencies>
@@ -71,7 +71,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
-                    <skipTests>${skip.surefire.tests}</skipTests>
+                    <skipTests>${skipSurefireTests}</skipTests>
                 </configuration>
             </plugin>
             <plugin>
@@ -79,7 +79,7 @@
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
-                    <skipTests>${skip.failsafe.tests}</skipTests>
+                    <skipTests>${skipFailsafeTests}</skipTests>
                 </configuration>
                 <executions>
                     <execution>
