@@ -37,7 +37,7 @@ jobs:
         run: mvn -B package --file pom.xml
 
       - name: Unit Test
-        run: mvn -B -Dskip.surefire.tests=false
+        run: mvn -B -Dskip.surefire.tests=false test
 
       - name: Integration Test
-        run: mvn verify -Dskip.failsafe.tests=false
+        run: mvn -B -Dskip.failsafe.tests=false verify
