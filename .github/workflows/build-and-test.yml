@@ -34,10 +34,10 @@ jobs:
           cache: maven
 
       - name: Build
-        run: mvn -B -DskipTests package --file pom.xml
+        run: mvn -B package --file pom.xml
 
       - name: Unit Test
-        run: mvn -B test
+        run: mvn -B -Dskip.surefire.tests=false
 
       - name: Integration Test
-        run: mvn verify -Dskip.surefire.tests
+        run: mvn verify -Dskip.failsafe.tests=false

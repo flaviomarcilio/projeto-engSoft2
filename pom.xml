@@ -16,7 +16,9 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <skipTests>true</skipTests>
         <skip.surefire.tests>${skipTests}</skip.surefire.tests>
+        <skip.failsafe.tests>${skipTests}</skip.failsafe.tests>
     </properties>
 
     <dependencies>
@@ -76,6 +78,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>3.2.2</version>
+                <configuration>
+                    <skipTests>${skip.failsafe.tests}</skipTests>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>
